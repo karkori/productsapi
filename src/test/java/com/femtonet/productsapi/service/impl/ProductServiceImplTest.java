@@ -7,9 +7,6 @@ import com.femtonet.productsapi.repository.ProductRepository;
 import com.femtonet.productsapi.service.ProductService;
 import com.femtonet.productsapi.utils.ApiConstants;
 import com.femtonet.productsapi.utils.mapper.ProductMapper;
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.femtonet.productsapi.utils.TestUtils.isInAscendingOrder;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
@@ -103,21 +101,6 @@ public class ProductServiceImplTest {
         return products;
     }
 
-    private Matcher<? super List<ProductResponse>> isInAscendingOrder() {
-        return new TypeSafeMatcher<List<ProductResponse>>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("The product list is not sorted!");
-            }
 
-            @Override
-            protected boolean matchesSafely(List<ProductResponse> item) {
-                for (int i = 0; i < item.size() - 1; i++) {
-                    if (item.get(i).getSortPoint() >= item.get(i + 1).getSortPoint()) return false;
-                }
-                return true;
-            }
-        };
-    }
 
 }
